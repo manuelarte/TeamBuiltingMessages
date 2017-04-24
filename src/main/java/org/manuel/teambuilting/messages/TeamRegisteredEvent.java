@@ -1,10 +1,6 @@
 package org.manuel.teambuilting.messages;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,14 +11,11 @@ import java.util.Date;
  * @author Manuel Doncel Martos
  * @since 11/01/2017.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonDeserialize(builder = TeamRegisteredEvent.TeamRegisteredEventBuilder.class)
 @Data
 @AllArgsConstructor
 public class TeamRegisteredEvent {
 
-    public static final String ROUTING_KEY = "team.registered";
+    public static final String ROUTING_KEY = "team.cud.registered";
 
     @NotNull
     private final String teamId;
@@ -35,9 +28,5 @@ public class TeamRegisteredEvent {
     @JsonIgnore
     public String getRoutingKey() {
         return ROUTING_KEY;
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static final class TeamRegisteredEventBuilder {
     }
 }
