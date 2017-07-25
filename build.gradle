@@ -78,9 +78,8 @@ gradleLint {
     rules += 'unused-exclude-by-dep'
 }
 
-jar {
-	baseName = "${microserviceName}"
-	version = project.version
+artifacts {
+	archives jar
 }
 
 contacts {
@@ -164,10 +163,10 @@ publishing {
 		}
 	}
     repositories {
-        maven {
-            // change to point to your repo, e.g. http://my.org/repo
-            url System.getenv( 'TEAMBUILTING_PLAYERS' ) + '/repo'
-        }
+        maven { url System.getenv( 'TEAMBUILTING_PLAYERS' ) + '/repo' }
+        maven { url System.getenv( 'TEAMBUILTING_TEAMS' ) + '/repo' }
+        maven { url System.getenv( 'TEAMBUILTING_SPORTS' ) + '/repo' }
+        maven { url System.getenv( 'TEAMBUILTING_MATCHES' ) + '/repo' }
     }
 }
 
