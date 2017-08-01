@@ -28,7 +28,7 @@ def excludedClasses() {
 }
 
 group 'org.manuel.teambuilting'
-version '0.1.0-SNAPSHOT'
+version '0.1.0'
 
 apply plugin: 'build-announcements'
 apply plugin: 'build-dashboard'
@@ -76,10 +76,6 @@ gradleLint {
     criticalRules += 'unused-dependency'
     rules += 'duplicate-dependency-class'
     rules += 'unused-exclude-by-dep'
-}
-
-artifacts {
-	archives jar
 }
 
 contacts {
@@ -156,6 +152,22 @@ dependencyUpdates.resolutionStrategy = {
     }
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+	from sourceSets.main.allSource
+	classifier 'sources'
+}
+
+task javadocsJar(type: Jar, dependsOn: javadoc) {
+	from javadoc.destinationDir
+	classifier = 'javadoc'
+}
+
+artifacts {
+	archives jar
+	archives sourcesJar
+	archives javadocsJar
+}
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -167,6 +179,7 @@ publishing {
         maven { url System.getenv( 'TEAMBUILTING_TEAMS' ) + '/repo' }
         maven { url System.getenv( 'TEAMBUILTING_SPORTS' ) + '/repo' }
         maven { url System.getenv( 'TEAMBUILTING_MATCHES' ) + '/repo' }
+		maven { url System.getenv( 'TEAMBUILTING_EXPERIENCE' ) + '/repo' }
     }
 }
 
